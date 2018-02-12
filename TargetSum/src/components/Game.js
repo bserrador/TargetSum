@@ -11,7 +11,7 @@ class Game extends React.Component {
     };
 
     state = {
-        selectedNumbers: [],
+        selectedIds: [],
     };
 
     randomNumbers = Array
@@ -24,16 +24,34 @@ class Game extends React.Component {
         // TODO: Shuffle the random numbers
 
     isNumberSelected = (numberIndex) => {
-        return this.state.selectedNumbers.indexOf(numberIndex) >= 0;
+        return this.state.selectedIds.indexOf(numberIndex) >= 0;
     }
 
     selectNumber = (numberIndex) => {
         this.setState((prevState) => ({
-            selectedNumbers: [...prevState.selectedNumbers, numberIndex],
+            selectedIds: [...prevState.selectedIds, numberIndex],
         }));
     };
 
+    // Get the game status
+    gameStatus = () => {
+        const sumSelected = this.state.selectedIds.reduce((acc, curr) => {
+            return acc + this.randomNumbers[curr];
+        }, 0)
+        if (sumSelected < this.target) {
+            return 'PLAYING';
+        }
+        if (sumSelected === this.target) {
+            return 'WON';
+        }
+        if (sumSelected > this.target) {
+            return 'LOST';
+        }
+    }
+
     render() {
+        const gameStatus = this.gameStatus();
+
         return (
             <View style={styles.container}>
                 <Text style={styles.target}>{this.target}</Text>
@@ -48,6 +66,7 @@ class Game extends React.Component {
                         />
                     ))}
                 </View>
+                <Text>{gameStatus}</Text>
             </View>
         );
     }

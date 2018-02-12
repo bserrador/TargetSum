@@ -61,7 +61,7 @@ class Game extends React.Component {
                             key={index}
                             id={index}
                             number={randomNumber}
-                            isDisabled={this.isNumberSelected(index)}
+                            isDisabled={this.isNumberSelected(index) || gameStatus !== 'PLAYING'}
                             onPress={this.selectNumber}
                         />
                     ))}
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     STATUS_WON: {
         backgroundColor: 'green',
     },
-    
+
     STATUS_LOST: {
         backgroundColor: 'red',
     },

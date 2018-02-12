@@ -7,7 +7,7 @@ import RandomNumber from './RandomNumber';
 
 class Game extends React.Component {
     static propTypes = {
-        randomNumberCount: PropTypes.number.isRequiredm
+        randomNumberCount: PropTypes.number.isRequired,
     };
 
     state = {
